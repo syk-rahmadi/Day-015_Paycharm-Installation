@@ -1,6 +1,5 @@
 #Program Requirements
 
-
 # TODO 1. print report;
 
 Menu = {
@@ -41,16 +40,19 @@ profit = 0
 
 # TODO 2. Check resources sufficient?
 def is_resources_sufficient(order_ingredient):
+    """Returns True when order can be made, False if ingredients are insufficient."""
+    is_enough = True
     for item in order_ingredient:
         if order_ingredient [item] > resources[item]:
             print(f"Sorry there is not enough {item}.")
-            return False
-    return True
+            is_enough = False
+    return is_enough
 
 
 # TODO 3. Process coins
 # Coins request
 def process_coins():
+    """Return the total calculated from coins inserted."""
     print("Please insert your coins!")
     total = int(input("How many quarters?")) * 0.25
     total += int(input("How many dimes?")) * 0.1
@@ -61,10 +63,11 @@ def process_coins():
 
 # TODO 4. Check transaction successful?
 def is_transaction_successful (money_received, drink_cost):
+    """Return True when the payment is accepted, or False if money is insufficient."""
     if money_received >= drink_cost:
         change = round (money_received - drink_cost, 2)
         print(f"Here is your ${change} in change.")
-        global profit
+        global profit #to reach profit where in the global scope, add global
         profit += drink_cost
         return True
     else:
@@ -73,6 +76,7 @@ def is_transaction_successful (money_received, drink_cost):
 
 # TODO 5. Make coffee
 def make_coffee (drink_name, order_ingredients):
+    """Deduct the required ingredients from resources."""
     for item in order_ingredients:
         resources[item] -= order_ingredients[item]
     print(f"Here is your {drink_name}. Enjoy!")
